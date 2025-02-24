@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewich's Destiny</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #1a1025;
+            --text-primary: #ffffff;
+            --accent-color: #8a2be2;
+            --gradient-start: #2a1b3d;
+            --gradient-end: #1a1025;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+        }
+
+        .content {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content.fade-out {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+            transition: text-shadow 0.5s ease;
+        }
+
+        h1:hover {
+            text-shadow: 0 0 40px rgba(138, 43, 226, 0.5);
+        }
+
+        .soon-text {
+            font-size: 6rem;
+            font-weight: 700;
+            letter-spacing: 0.5rem;
+            margin-bottom: 2rem;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        .description {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            transition: color 0.3s ease;
+        }
+
+        .description:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .reveal-text {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            animation: slideIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .timer:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin: 2rem 0;
+            color: var(--accent-color);
+            animation: rotate 15s linear infinite;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: color 0.3s ease;
+        }
+
+        .icon:hover {
+            color: #9f3eff;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotate {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .soon-text {
+                font-size: 4rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .description {
+                font-size: 1.2rem;
+            }
+            .reveal-text {
+                font-size: 2rem;
+            }
+        }
+
+
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 16, 37, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: auto;
+        }
+
+        .disclaimer-content {
+            background: var(--gradient-start);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+            transform: translateY(0);
+            transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .disclaimer-content h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .disclaimer-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .disclaimer-button {
+            background: var(--accent-color);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            margin-top: 20px;
+        }
+
+        .disclaimer-content .notification-toggle {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .disclaimer-button:hover {
+            background-color: #9f3eff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        .disclaimer-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .disclaimer-content.hidden {
+            transform: translateY(-20px);
+        }
+
+        .notification-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .notification {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .ios-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 15px 0;
+        }
+
+        .ios-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .ios-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .ios-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .ios-slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .ios-slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="disclaimer-overlay" id="disclaimerOverlay">
+        <div class="disclaimer-content">
+            <h2>Дисклеймер</h2>
+            <p>Мы не можем предугадать выбор Rewich. Его возвращение в команду - это его личное решение. Все, что будет сказано в реальности, будет отражено на этом сайте. Что будет с проектом? Не ебем в душе... Это путешествие в неизвестность, и мы все узнаем вместе.</p>
+            <div class="notification-toggle">
+                <p>Разрешить уведомления</p>
+                <label class="ios-switch">
+                    <input type="checkbox" id="notificationToggle" onchange="toggleNotifications()">
+                    <span class="ios-slider"></span>
+                </label>
+            </div>
+            <button class="disclaimer-button" onclick="acceptDisclaimer()">Я понимаю</button>
+        </div>
+    </div>
+
+    <div class="notification-wrapper" id="notificationWrapper"></div>
+    <div class="container">
+        <i class="fas fa-triangle icon"></i>
+        <div class="content" id="mainContent">
+            <h1>Судьба Rewich</h1>
+            <div class="soon-text">SOON...</div>
+            <p class="description">На этом сайте вся судьба Rewich. В 13:00 по МСК будет все ясно. Ожидайте...</p>
+            <div class="timer" id="timer"></div>
+        </div>
+        <div class="content fade-out" id="revealContent" style="display: none;">
+            <div class="reveal-text">ВЫ ДУМАЛИ МЫ УЙДЕМ?</div>
+            <div class="reveal-text" style="animation-delay: 0.5s;">ВЫ ХУЕВО ДУМАЕТЕ</div>
+        </div>
+    </div>
+
+    <script>
+        // Проверяем только настройки уведомлений при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            const notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
+            document.getElementById('notificationToggle').checked = notificationsEnabled;
+
+            if (notificationsEnabled && Notification.permission === "granted") {
+                setTimeout(() => {
+                    addNotification('Не забудь проверить сайт в 13:00 МСК!');
+                    new Notification("Rewich's Destiny", {
+                        body: 'Не забудь проверить сайт в 13:00 МСК!',
+                        icon: '/favicon.ico'
+                    });
+                }, 1000);
+            }
+        });
+
+        function acceptDisclaimer() {
+            const overlay = document.getElementById('disclaimerOverlay');
+            const content = overlay.querySelector('.disclaimer-content');
+
+            // Сохраняем в localStorage только после нажатия на кнопку
+            localStorage.setItem('disclaimerAccepted', 'true');
+
+            content.classList.add('hidden');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 2000);
+        }
+
+        async function toggleNotifications() {
+            const isEnabled = document.getElementById('notificationToggle').checked;
+
+            if (isEnabled) {
+                if (Notification.permission !== "granted") {
+                    const permission = await Notification.requestPermission();
+                    if (permission !== "granted") {
+                        document.getElementById('notificationToggle').checked = false;
+                        addNotification('Для работы уведомлений необходимо разрешение браузера');
+                        return;
+                    }
+                }
+
+                localStorage.setItem('notificationsEnabled', 'true');
+                addNotification('Уведомления включены. Мы напомним вам о важных событиях!');
+                new Notification("Rewich's Destiny", {
+                    body: 'Уведомления включены. Мы напомним вам о важных событиях!',
+                    icon: '/favicon.ico'
+                });
+
+                const now = new Date();
+                const mskOffset = 3;
+                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+                const mskTime = new Date(utc + (3600000 * mskOffset));
+
+                if (mskTime.getHours() < 13) {
+                    setTimeout(() => {
+                        addNotification('Не забудь проверить сайт в 13:00 МСК!');
+                        new Notification("Rewich's Destiny", {
+                            body: 'Не забудь проверить сайт в 13:00 МСК!',
+                            icon: '/favicon.ico'
+                        });
+                    }, 1000 * 60 * 60);
+                }
+            } else {
+                localStorage.setItem('notificationsEnabled', 'false');
+            }
+        }
+
+        function addNotification(message) {
+            if (!document.getElementById('notificationToggle').checked) return;
+
+            const wrapper = document.getElementById('notificationWrapper');
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            wrapper.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    wrapper.removeChild(notification);
+                }, 400);
+            }, 5000);
+        }
+
+        function checkTime() {
+            const now = new Date();
+            const mskOffset = 3;
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const mskTime = new Date(utc + (3600000 * mskOffset));
+
+            const hours = mskTime.getHours();
+            const minutes = mskTime.getMinutes();
+
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = `Текущее время МСК: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+            if (hours === 13 && minutes >= 0) {
+                showRevealContent();
+            }
+        }
+
+        function showRevealContent() {
+            const mainContent = document.getElementById('mainContent');
+            const revealContent = document.getElementById('revealContent');
+
+            mainContent.classList.add('fade-out');
+
+            setTimeout(() => {
+                mainContent.style.display = 'none';
+                revealContent.style.display = 'block';
+                setTimeout(() => {
+                    revealContent.classList.remove('fade-out');
+                }, 100);
+            }, 1200);
+        }
+
+        setInterval(checkTime, 1000);
+        checkTime();
+    </script>
+</body>
+</html>
