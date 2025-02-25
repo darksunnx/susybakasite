@@ -3,537 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Sun - Social Media Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dark Sun Project</title>
     <style>
-        .modal {
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #111;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .sun-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: #222;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #333;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .contact-btn:hover {
+            background: #444;
+        }
+
+        /* Пасхалка */
+        .easter-egg-trigger {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid #444;
+            color: #444;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .video-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
+            inset: 0;
+            background: black;
             z-index: 1000;
         }
-        .modal.active {
+
+        .video-overlay.active {
+            display: block;
+        }
+
+        .video-overlay video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay-content {
+            position: absolute;
+            inset: 0;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
         }
-        .mobile-menu {
-            display: none;
+
+        .ip-display {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
         }
-        @media (max-width: 640px) {
-            .mobile-menu {
-                display: block;
-            }
-            .desktop-menu {
-                display: none;
-            }
+
+        .exit-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .exit-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="text-2xl font-bold">Dark Sun</span>
-                    </div>
-                    <!-- Desktop Menu -->
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8 desktop-menu">
-                        <a href="#" onclick="showContent('home')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Главная</a>
-                        <a href="#" onclick="showContent('works')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Работы</a>
-                        <a href="#" onclick="showContent('about')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">О нас</a>
-                        <a href="#" onclick="showContent('pricing')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Цены</a>
-                        <a href="#" id="adminNav" onclick="showContent('admin')" class="hidden text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Админ</a>
-                    </div>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="flex items-center sm:hidden">
-                    <button onclick="toggleMobileMenu()" class="mobile-menu p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex items-center">
-                    <button id="loginBtn" onclick="showModal('loginModal')" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm">Вход</button>
-                    <button id="logoutBtn" onclick="handleLogout()" class="hidden bg-red-600 text-white px-4 py-2 rounded-md text-sm">Выход</button>
-                </div>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="sun-icon">☀️</div>
+            <h1>Project Dark Sun</h1>
+            <p>Dark Sun- команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении.</p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Наша Миссия</h2>
+                <p>Dark Sun посвящен выебов педофилов и прочего мусора.</p>
+            </div>
+            <div class="card">
+                <h2>Исследования</h2>
+                <p>Мы помогаем мирным и Когда полиция свое дело не выполняет мы помогаем вам.</p>
             </div>
         </div>
 
-        <!-- Mobile menu -->
-        <div id="mobileMenu" class="hidden sm:hidden bg-white border-t border-gray-200">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#" onclick="showContent('home'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Главная</a>
-                <a href="#" onclick="showContent('works'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Работы</a>
-                <a href="#" onclick="showContent('about'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">О нас</a>
-                <a href="#" onclick="showContent('pricing'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Цены</a>
-                <a href="#" id="mobileAdminNav" onclick="showContent('admin'); toggleMobileMenu()" class="hidden block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Админ панель</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Content Sections -->
-    <div id="mainContent" class="container mx-auto px-4 py-8">
-        <!-- Home Section -->
-        <div id="home" class="content-section">
-            <h2 class="text-3xl font-bold mb-8">Добро пожаловать в Dark Sun</h2>
-            <div class="grid gap-6">
-                <!-- Post Form -->
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <textarea id="postContent" class="w-full p-2 border rounded" placeholder="О чем вы думаете?"></textarea>
-                    <div class="mt-4">
-                        <input type="file" id="mediaFile" accept="image/*,video/*" class="mb-4">
-                        <p class="text-sm text-gray-600 mb-4">Поддерживаемые форматы: Изображения (jpg, png, gif) и Видео (mp4, webm)</p>
-                    </div>
-                    <button onclick="submitPost()" class="bg-blue-600 text-white px-4 py-2 rounded">Опубликовать</button>
-                </div>
-                <!-- Posts Container -->
-                <div id="postsContainer" class="space-y-6"></div>
-            </div>
-        </div>
-
-        <!-- Admin Section -->
-        <div id="admin" class="content-section hidden">
-            <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-6">Админ панель</h2>
-                <!-- Works Form -->
-                <div class="mb-8 bg-gray-50 p-4 sm:p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">Добавить видео</h3>
-                    <form onsubmit="event.preventDefault(); addWork();" class="space-y-4">
-                        <div>
-                            <input type="text" id="workTitle" placeholder="Название" class="w-full p-2 border rounded" required>
-                        </div>
-                        <div>
-                            <textarea id="workDescription" placeholder="Описание" class="w-full p-2 border rounded" rows="3" required></textarea>
-                        </div>
-                        <div>
-                            <input type="file" id="workVideo" accept="video/*" class="w-full" required>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                            Добавить
-                        </button>
-                    </form>
-                </div>
-                <!-- Content Moderation -->
-                <div class="space-y-4">
-                    <h3 class="text-xl font-bold">Модерация</h3>
-                    <div id="pendingPosts" class="space-y-4"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Works Section -->
-        <div id="works" class="content-section hidden">
-            <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-6">Наши работы</h2>
-
-                <!-- Admin Only: Add Work Form -->
-                <div id="addWorkForm" class="mb-8 bg-gray-50 p-4 sm:p-6 rounded-lg" style="display: none;">
-                    <h3 class="text-xl font-bold mb-4">Добавить видео</h3>
-                    <form onsubmit="event.preventDefault(); addWork();" class="space-y-4">
-                        <div>
-                            <input type="text" id="workTitle" placeholder="Название" class="w-full p-2 border rounded" required>
-                        </div>
-                        <div>
-                            <textarea id="workDescription" placeholder="Описание" class="w-full p-2 border rounded" rows="3" required></textarea>
-                        </div>
-                        <div>
-                            <input type="file" id="workVideo" accept="video/*" class="w-full" required>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                            Добавить
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Works Container (visible to all users) -->
-                <div id="worksContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <!-- Works will be dynamically added here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <div id="about" class="content-section hidden">
-            <div class="bg-white p-8 rounded-lg shadow">
-                <h2 class="text-3xl font-bold mb-6">О Dark Sun</h2>
-                <p class="text-lg mb-6">
-                    Dark Sun — революционная платформа социальных сетей, созданная для обеспечения безопасного
-                    и контролируемого пространства для обмена креативным контентом. Наша миссия — создать
-                    сообщество, где каждый элемент контента тщательно проверяется для обеспечения
-                    наивысших стандартов качества.
-                </p>
-                <h3 class="text-xl font-semibold mb-4">Наши функции</h3>
-                <ul class="list-disc pl-6 mb-6">
-                    <li>Усовершенствованная система модерации контента</li>
-                    <li>Обмен высококачественными фотографиями и видео</li>
-                    <li>Профессиональное курирование контента</li>
-                    <li>Активное взаимодействие сообщества</li>
-                </ul>
-                <h3 class="text-xl font-semibold mb-4">Свяжитесь с нами</h3>
-                <p>
-                    Telegram: @darksun_support<br>
-                    Email: contact@darksun.com
-                </p>
-            </div>
-        </div>
-
-        <!-- Pricing Section -->
-        <div id="pricing" class="content-section hidden">
-            <div class="max-w-2xl mx-auto">
-                <div class="bg-white p-8 rounded-lg shadow">
-                    <h2 class="text-3xl font-bold mb-6">Доступ к проекту</h2>
-                    <p class="text-lg mb-8">
-                        👮‍♂️Dark Sun — команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в кибер направлении.
-                    </p>
-                    <div class="space-y-4 mb-8">
-                        <h3 class="text-xl font-semibold">Что включено:</h3>
-                        <ul class="space-y-2">
-                            <li class="flex items-center">
-                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                Система модерации контента
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                Загрузка фото и видео
-                            </li>
-                            <li class="flex items-center">
-                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                Административная панель
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="mb-8">
-                        <p class="text-xl font-semibold mb-2">Стоимость доступа:</p>
-                        <p class="text-3xl font-bold mb-4">По запросу</p>
-                        <p class="text-gray-600">
-                            Для получения информации о стоимости и условиях использования, 
-                            свяжитесь с нами в Telegram
-                        </p>
-                    </div>
-                    <a href="https://t.me/darksun_support" target="_blank" class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700">
-                        Связаться в Telegram
-                    </a>
-                </div>
-            </div>
+        <div style="text-align: center;">
+            <h2>Связаться с нами</h2>
+            <a href="https://t.me/Divizion_of_Revichs" target="_blank" class="contact-btn">
+                📱 Telegram
+            </a>
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="m-auto bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
-            <h2 class="text-xl font-bold mb-4">Вход для админа</h2>
-            <form onsubmit="handleLogin(event)" class="space-y-4">
-                <input type="text" id="username" placeholder="Логин" class="w-full p-2 border rounded" required>
-                <input type="password" id="password" placeholder="Пароль" class="w-full p-2 border rounded" required>
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Войти</button>
-                <button type="button" onclick="hideModal('loginModal')" class="w-full bg-gray-200 text-gray-700 py-2 rounded">Отмена</button>
-            </form>
+    <button class="easter-egg-trigger" onclick="showEasterEgg()">?</button>
+
+    <div class="video-overlay" id="videoOverlay">
+        <video src="viva.mp4" autoplay loop muted></video>
+        <div class="overlay-content">
+            <div class="ip-display" id="ipDisplay">Loading IP...</div>
+            <button class="exit-btn" onclick="hideEasterEgg()">Выйти</button>
         </div>
     </div>
-
 
     <script>
-        // Admin credentials
-        const ADMIN_CREDENTIALS = {
-            username: 'stripyxa',
-            password: 'alex'
-        };
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Content navigation
-        function showContent(section) {
-            document.querySelectorAll('.content-section').forEach(el => el.classList.add('hidden'));
-            document.getElementById(section).classList.remove('hidden');
-
-            // Close mobile menu when navigating
-            document.getElementById('mobileMenu').classList.add('hidden');
-
-            // Always render works when switching to works section
-            if (section === 'works') {
-                renderWorks();
-            }
-        }
-
-        // Modal handling
-        function showModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function hideModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Admin UI updates
-        function updateAdminUI(isAdmin) {
-            document.getElementById('adminNav').style.display = isAdmin ? 'inline-flex' : 'none';
-            document.getElementById('mobileAdminNav').style.display = isAdmin ? 'block' : 'none';
-            document.getElementById('loginBtn').style.display = isAdmin ? 'none' : 'block';
-            document.getElementById('logoutBtn').style.display = isAdmin ? 'block' : 'none';
-            if (document.getElementById('works').classList.contains('hidden') === false) {
-                document.getElementById('addWorkForm').style.display = isAdmin ? 'block' : 'none';
-            }
-        }
-
-        // Login/Logout handling
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                localStorage.setItem('isAdmin', 'true');
-                updateAdminUI(true);
-                hideModal('loginModal');
-                showContent('admin');
-            } else {
-                alert('Неверные учетные данные!');
-            }
-        }
-
-        function handleLogout() {
-            localStorage.removeItem('isAdmin');
-            updateAdminUI(false);
-            showContent('home');
-        }
-
-
-        // Works management
-        async function addWork() {
-            const title = document.getElementById('workTitle').value.trim();
-            const description = document.getElementById('workDescription').value.trim();
-            const videoFile = document.getElementById('workVideo').files[0];
-
-            if (title && description && videoFile) {
-                if (!videoFile.type.startsWith('video/')) {
-                    alert('Пожалуйста, выберите видео файл!');
-                    return;
-                }
-
-                const formData = new FormData();
-                formData.append('title', title);
-                formData.append('description', description);
-                formData.append('video', videoFile);
-
-                try {
-                    const response = await fetch('/api/works', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Ошибка при загрузке работы');
-                    }
-
-                    // Clear form
-                    document.getElementById('workTitle').value = '';
-                    document.getElementById('workDescription').value = '';
-                    document.getElementById('workVideo').value = '';
-
-                    renderWorks();
-                    alert('Работа успешно добавлена!');
-                } catch (error) {
-                    console.error('Ошибка:', error);
-                    alert('Произошла ошибка при добавлении работы');
-                }
-            } else {
-                alert('Заполните все поля!');
-            }
-        }
-
-        async function renderWorks() {
+        // Функция получения IP
+        async function getIP() {
             try {
-                const response = await fetch('/api/works');
+                const response = await fetch('/api/ip');
                 const data = await response.json();
-                const works = data.works;
-                const isAdmin = localStorage.getItem('isAdmin') === 'true';
-
-                // Show/hide add work form based on admin status
-                const addWorkForm = document.getElementById('addWorkForm');
-                if (addWorkForm) {
-                    addWorkForm.style.display = isAdmin ? 'block' : 'none';
-                }
-
-                const worksHTML = works.map(work => `
-                    <div class="bg-white rounded-lg overflow-hidden shadow">
-                        <video class="w-full h-48 object-cover" controls>
-                            <source src="${work.videoUrl}" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
-                        <div class="p-4">
-                            <h3 class="font-semibold mb-2">${work.title}</h3>
-                            <p class="text-gray-600 text-sm">${work.description}</p>
-                            <p class="text-gray-500 text-xs mt-2">Добавлено: ${work.date}</p>
-                            ${isAdmin ? `
-                                <button onclick="deleteWork(${work.id})" 
-                                        class="mt-2 w-full bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
-                                    Удалить
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `).join('');
-
-                const worksContainer = document.getElementById('worksContainer');
-                if (worksContainer) {
-                    worksContainer.innerHTML = worksHTML || 
-                        '<p class="text-center text-gray-500 p-4">Пока нет добавленных работ</p>';
-                }
+                document.getElementById('ipDisplay').textContent = `Ваш IP: ${data.ip}`;
             } catch (error) {
-                console.error('Ошибка при загрузке работ:', error);
-                document.getElementById('worksContainer').innerHTML = 
-                    '<p class="text-center text-red-500 p-4">Ошибка при загрузке работ</p>';
+                console.error('Error fetching IP:', error);
+                document.getElementById('ipDisplay').textContent = 'Не удалось получить IP';
             }
         }
 
-        function deleteWork(workId) {
-            if (confirm('Вы уверены, что хотите удалить эту работу?')) {
-                //This part will need to be updated to handle file deletion from the server.  For now, it's commented out to avoid errors.
-                //const works = JSON.parse(localStorage.getItem('works') || '[]');
-                //const updatedWorks = works.filter(work => work.id !== workId);
-                //localStorage.setItem('works', JSON.stringify(updatedWorks));
-                renderWorks();
-            }
+        // Функции для пасхалки
+        function showEasterEgg() {
+            document.getElementById('videoOverlay').classList.add('active');
+            getIP();
         }
 
-        function submitPost() {
-            const content = document.getElementById('postContent').value.trim();
-            const mediaFile = document.getElementById('mediaFile').files[0];
-            const nickname = localStorage.getItem('userNickname');
-
-            if (content && nickname) {
-                const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-                const newPost = {
-                    id: Date.now(),
-                    content,
-                    nickname,
-                    date: new Date().toLocaleDateString(),
-                    status: 'pending',
-                    mediaType: mediaFile ? mediaFile.type.startsWith('video/') ? 'video' : 'image' : null
-                };
-
-                posts.push(newPost);
-                localStorage.setItem('posts', JSON.stringify(posts));
-
-                alert('Post submitted for moderation!');
-                document.getElementById('postContent').value = '';
-                document.getElementById('mediaFile').value = '';
-                renderPosts();
-            }
+        function hideEasterEgg() {
+            document.getElementById('videoOverlay').classList.remove('active');
         }
-
-        function renderPosts() {
-            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-            const isAdmin = localStorage.getItem('isAdmin') === 'true';
-
-            // Render public posts
-            const publicPosts = posts.filter(post => post.status === 'approved')
-                .map(post => createPostElement(post, isAdmin))
-                .join('');
-            document.getElementById('postsContainer').innerHTML = publicPosts;
-
-            if (isAdmin) {
-                // Render pending posts
-                const pendingPosts = posts.filter(post => post.status === 'pending')
-                    .map(post => createPostElement(post, true, true))
-                    .join('');
-                document.getElementById('pendingPosts').innerHTML = pendingPosts;
-
-                // Render approved posts in admin view
-                const approvedPosts = posts.filter(post => post.status === 'approved')
-                    .map(post => createPostElement(post, true))
-                    .join('');
-                document.getElementById('approvedPosts').innerHTML = approvedPosts;
-            }
-        }
-
-        function createPostElement(post, isAdmin, isPending = false) {
-            return `
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <span class="font-semibold">${post.nickname}</span>
-                            <span class="text-gray-500 text-sm ml-2">${post.date}</span>
-                            ${post.status === 'pending' ? '<span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded ml-2">Pending</span>' : ''}
-                        </div>
-                        ${isAdmin ? `
-                            <div class="space-x-2">
-                                ${isPending ? `
-                                    <button onclick="moderatePost(${post.id}, 'approved')" 
-                                            class="bg-green-500 text-white px-3 py-1 rounded">
-                                        Approve
-                                    </button>
-                                    <button onclick="moderatePost(${post.id}, 'rejected')" 
-                                            class="bg-red-500 text-white px-3 py-1 rounded">
-                                        Reject
-                                    </button>
-                                ` : `
-                                    <button onclick="moderatePost(${post.id}, 'deleted')" 
-                                            class="bg-red-500 text-white px-3 py-1 rounded">
-                                        Delete
-                                    </button>
-                                `}
-                            </div>
-                        ` : ''}
-                    </div>
-                    <p class="mb-4">${post.content}</p>
-                    ${post.mediaType ? `
-                        <div class="mt-4">
-                            ${post.mediaType === 'video' ? 
-                                '<video controls class="w-full max-h-96 object-contain"><source src="placeholder.mp4" type="video/mp4"></video>' :
-                                '<img src="https://via.placeholder.com/400x300" alt="Post media" class="w-full max-h-96 object-contain">'
-                            }
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-        }
-
-        function moderatePost(postId, newStatus) {
-            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-            const postIndex = posts.findIndex(p => p.id === postId);
-
-            if (postIndex !== -1) {
-                if (newStatus === 'deleted') {
-                    posts.splice(postIndex, 1);
-                } else {
-                    posts[postIndex].status = newStatus;
-                }
-                localStorage.setItem('posts', JSON.stringify(posts));
-                renderPosts();
-            }
-        }
-
-        // Initialize storage and render content
-        window.addEventListener('DOMContentLoaded', () => {
-            const isAdmin = localStorage.getItem('isAdmin') === 'true';
-            if (!localStorage.getItem('works')) {
-                localStorage.setItem('works', JSON.stringify([]));
-            }
-            if (!localStorage.getItem('posts')) {
-                localStorage.setItem('posts', JSON.stringify([]));
-            }
-            updateAdminUI(isAdmin);
-            renderWorks(); // Render works for all users
-            renderPosts();
-            showContent('home');
-        });
     </script>
 </body>
 </html>
