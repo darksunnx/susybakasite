@@ -132,23 +132,24 @@
         <header class="header">
             <div class="sun-icon">☀️</div>
             <h1>Project Dark Sun</h1>
-            <p>Dark Sun- команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении.</p>
+            <p>команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении.
+            </p>
         </header>
 
         <div class="grid">
             <div class="card">
-                <h2>Наша Миссия</h2>
-                <p>Dark Sun посвящен выебов педофилов и прочего мусора.</p>
+                <h2>идея проэкта</h2>
+                <p>Dark Sun посвящен очищением мира от педофилов и другого биомусора.</p>
             </div>
             <div class="card">
-                <h2>Исследования</h2>
-                <p>Мы помогаем мирным и Когда полиция свое дело не выполняет мы помогаем вам.</p>
+                <h2>Помощь</h2>
+                <p>Мы не только делаем мир чище но и помагаем мирным.</p>
             </div>
         </div>
 
         <div style="text-align: center;">
             <h2>Связаться с нами</h2>
-            <a href="https://t.me/Divizion_of_Revichs" target="_blank" class="contact-btn">
+            <a href="https://t.me/@Divizion_of_Revichs" target="_blank" class="contact-btn">
                 📱 Telegram
             </a>
         </div>
@@ -157,20 +158,21 @@
     <button class="easter-egg-trigger" onclick="showEasterEgg()">?</button>
 
     <div class="video-overlay" id="videoOverlay">
-        <video src="viva.mp4" autoplay loop muted></video>
+        <video id="easterEggVideo" src="viva.mp4" autoplay loop></video>
         <div class="overlay-content">
             <div class="ip-display" id="ipDisplay">Loading IP...</div>
-            <button class="exit-btn" onclick="hideEasterEgg()">Выйти</button>
+            <button class="exit-btn" onclick="hideEasterEgg()">Ладно шучу выходи
+            </button>
         </div>
     </div>
 
     <script>
-        // Функция получения IP
+        // Функция получения IP через публичный API
         async function getIP() {
             try {
-                const response = await fetch('/api/ip');
+                const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
-                document.getElementById('ipDisplay').textContent = `Ваш IP: ${data.ip}`;
+                document.getElementById('ipDisplay').textContent = `Ваш IP: ${data.ip} жди докс чучело`;
             } catch (error) {
                 console.error('Error fetching IP:', error);
                 document.getElementById('ipDisplay').textContent = 'Не удалось получить IP';
@@ -179,12 +181,23 @@
 
         // Функции для пасхалки
         function showEasterEgg() {
-            document.getElementById('videoOverlay').classList.add('active');
+            const overlay = document.getElementById('videoOverlay');
+            const video = document.getElementById('easterEggVideo');
+
+            overlay.classList.add('active');
+            // Принудительный запуск видео со звуком
+            video.play()
+                .catch(e => console.error('Error playing video:', e));
+
             getIP();
         }
 
         function hideEasterEgg() {
-            document.getElementById('videoOverlay').classList.remove('active');
+            const overlay = document.getElementById('videoOverlay');
+            const video = document.getElementById('easterEggVideo');
+
+            overlay.classList.remove('active');
+            video.pause();
         }
     </script>
 </body>
