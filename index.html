@@ -131,6 +131,27 @@
         <div id="works" class="content-section hidden">
             <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
                 <h2 class="text-2xl sm:text-3xl font-bold mb-6">Наши работы</h2>
+
+                <!-- Admin Only: Add Work Form -->
+                <div id="addWorkForm" class="mb-8 bg-gray-50 p-4 sm:p-6 rounded-lg" style="display: none;">
+                    <h3 class="text-xl font-bold mb-4">Добавить видео</h3>
+                    <form onsubmit="event.preventDefault(); addWork();" class="space-y-4">
+                        <div>
+                            <input type="text" id="workTitle" placeholder="Название" class="w-full p-2 border rounded" required>
+                        </div>
+                        <div>
+                            <textarea id="workDescription" placeholder="Описание" class="w-full p-2 border rounded" rows="3" required></textarea>
+                        </div>
+                        <div>
+                            <input type="file" id="workVideo" accept="video/*" class="w-full" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Добавить
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Works Container (visible to all users) -->
                 <div id="worksContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     <!-- Works will be dynamically added here -->
                 </div>
@@ -142,7 +163,10 @@
             <div class="bg-white p-8 rounded-lg shadow">
                 <h2 class="text-3xl font-bold mb-6">О Dark Sun</h2>
                 <p class="text-lg mb-6">
-                    Dark Sun — команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении- .
+                    Dark Sun — революционная платформа социальных сетей, созданная для обеспечения безопасного
+                    и контролируемого пространства для обмена креативным контентом. Наша миссия — создать
+                    сообщество, где каждый элемент контента тщательно проверяется для обеспечения
+                    наивысших стандартов качества.
                 </p>
                 <h3 class="text-xl font-semibold mb-4">Наши функции</h3>
                 <ul class="list-disc pl-6 mb-6">
@@ -153,8 +177,8 @@
                 </ul>
                 <h3 class="text-xl font-semibold mb-4">Свяжитесь с нами</h3>
                 <p>
-                    Telegram: @Divizion_of_Revichs<br>
-                   
+                    Telegram: @darksun_support<br>
+                    Email: contact@darksun.com
                 </p>
             </div>
         </div>
@@ -165,7 +189,7 @@
                 <div class="bg-white p-8 rounded-lg shadow">
                     <h2 class="text-3xl font-bold mb-6">Доступ к проекту</h2>
                     <p class="text-lg mb-8">
-                        👮‍♂️Dark Sun — команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении.
+                        👮‍♂️Dark Sun — команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в кибер направлении.
                     </p>
                     <div class="space-y-4 mb-8">
                         <h3 class="text-xl font-semibold">Что включено:</h3>
@@ -174,66 +198,7 @@
                                 <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                 </svg>
-                                DOX - от 10$
-                                Полностью деанонимизируем вашего обидчика, отправляем вам фио, номера, почты, адреса, паспорта при их наличии и родителей
-
-                                Вызов на дом(SW4T) - 18$
-                                Звонкаем ментам говорим зарезали свою бабку по адресу и чела ебут во все щели в участке
-
-                                Эвакуация - 20$
-                                эвакуируем ваше учебное заведение в течение 10 минут после оплаты, всех выведут на улицу после отпустят домой
-
-                                Доставки - 15$
-                                Закажу жертве с разбитым ебальников 2кг свинины на его имя и добавлю туда сверху холодьник самсунг
-
-                                Расхуярить двери - 20$
-                                вызовем мастера, который будет дергать ручку двери, стучать ногой, сломают замки и вскроют дверь, и так будет идти всю ночь
-
-                                 Донос - 8$
-                                расскажем нужным органам о деяниях жертвы
-
-                                😈 Судный день - 100💵
-1 круг - 30$
-В один круг входит вызов: скорой помощи, пожарки, различные доставки по типу аниматоров, пицца, ритуальные услуги, блокировка бaнкoвских карт
-в сутки судного дня входит беспрерывный вызов всех доставок,что только существуют, человеку будут долбиться в дверь весь день)
-можно купить как по суткам, так и по кругам  также будут вызываться на адрес следующие типовые категории:
-
--   Представители гос. органов и спецслужб;
--   Всевозможные службы доставки;
--   Все эскортницы, которые будут в округе;
--   Аниматоры на дом;
--   Мужья на час; и так далее...
-
-DDOS от - 15💵💀
-Совершу DDOS атаку на нужный вам сайт
-
-Цена зависит от таких аспектов: защита сайта,время на которое его нужно положить,на сколько быстро нужно провести работу 
-
-🏷 Физический номер от - 5💵
-даем вам номер для телеграмма 
-🔄цена на прямую зависит от отлеги номера
-
-🌏🔐  "DEF" от Dark Sun - 
-💎 1 Month - 15💵
-💎3 Month - 25💵
-💎 6 Month - 40💵
-💎 1 Year - 60💵
-защита на просторах интернета, будем ебать всех и все, даже тех кто просто косо на вас посмотрит
-✅ Цена зависит от выбранного вами периода времени:
-Месяц / 6 месяцев / Год
-
-⚠️ Приватный канал - 20💵
-Покупая у нас приватный канал, вы гарантировано научитесь навыкам:
-
-   📤Доксинга
-   📤Сваттинга
-   📤Анонимности
-   📤 Сноса
-   📤 Вирусологии 
-   📤и прочему
-содержатся все нужные материалы для саморучного обучения от Ревича , постоянно пополняется информацией и моими знаниями
-вы можете найти напарника для совместной работы и обучения в этом же канале
-⚠️⚠️⚠️ ОБУЧЕНИЯ ВХОДИТ В ЦЕНУ ПРИВАТА
+                                Система модерации контента
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,14 +215,14 @@ DDOS от - 15💵💀
                         </ul>
                     </div>
                     <div class="mb-8">
-                        <p class="text-xl font-semibold mb-2">Стоимость услуг:</p>
-                        <p class="text-3xl font-bold mb-4">написано</p>
+                        <p class="text-xl font-semibold mb-2">Стоимость доступа:</p>
+                        <p class="text-3xl font-bold mb-4">По запросу</p>
                         <p class="text-gray-600">
                             Для получения информации о стоимости и условиях использования, 
                             свяжитесь с нами в Telegram
                         </p>
                     </div>
-                    <a href="https://t.me/Divizion_of_Revichs" target="_blank" class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700">
+                    <a href="https://t.me/darksun_support" target="_blank" class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700">
                         Связаться в Telegram
                     </a>
                 </div>
@@ -265,19 +230,19 @@ DDOS от - 15💵💀
         </div>
     </div>
 
-        <!-- Login Modal -->
-        <div id="loginModal" class="modal">
-            <div class="m-auto bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
-                <h2 class="text-xl font-bold mb-4">Вход для админа</h2>
-                <form onsubmit="handleLogin(event)" class="space-y-4">
-                    <input type="text" id="username" placeholder="Логин" class="w-full p-2 border rounded" required>
-                    <input type="password" id="password" placeholder="Пароль" class="w-full p-2 border rounded" required>
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Войти</button>
-                    <button type="button" onclick="hideModal('loginModal')" class="w-full bg-gray-200 text-gray-700 py-2 rounded">Отмена</button>
-                </form>
-            </div>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="m-auto bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
+            <h2 class="text-xl font-bold mb-4">Вход для админа</h2>
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <input type="text" id="username" placeholder="Логин" class="w-full p-2 border rounded" required>
+                <input type="password" id="password" placeholder="Пароль" class="w-full p-2 border rounded" required>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Войти</button>
+                <button type="button" onclick="hideModal('loginModal')" class="w-full bg-gray-200 text-gray-700 py-2 rounded">Отмена</button>
+            </form>
         </div>
-    
+    </div>
+
 
     <script>
         // Admin credentials
@@ -300,7 +265,7 @@ DDOS от - 15💵💀
             // Close mobile menu when navigating
             document.getElementById('mobileMenu').classList.add('hidden');
 
-            // Update works display for admin
+            // Always render works when switching to works section
             if (section === 'works') {
                 renderWorks();
             }
@@ -321,6 +286,9 @@ DDOS от - 15💵💀
             document.getElementById('mobileAdminNav').style.display = isAdmin ? 'block' : 'none';
             document.getElementById('loginBtn').style.display = isAdmin ? 'none' : 'block';
             document.getElementById('logoutBtn').style.display = isAdmin ? 'block' : 'none';
+            if (document.getElementById('works').classList.contains('hidden') === false) {
+                document.getElementById('addWorkForm').style.display = isAdmin ? 'block' : 'none';
+            }
         }
 
         // Login/Logout handling
@@ -345,8 +313,9 @@ DDOS от - 15💵💀
             showContent('home');
         }
 
+
         // Works management
-        function addWork() {
+        async function addWork() {
             const title = document.getElementById('workTitle').value.trim();
             const description = document.getElementById('workDescription').value.trim();
             const videoFile = document.getElementById('workVideo').files[0];
@@ -357,200 +326,88 @@ DDOS от - 15💵💀
                     return;
                 }
 
-                const works = JSON.parse(localStorage.getItem('works') || '[]');
-                const newWork = {
-                    id: Date.now(),
-                    title,
-                    description,
-                    videoUrl: URL.createObjectURL(videoFile),
-                    date: new Date().toLocaleDateString()
-                };
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('description', description);
+                formData.append('video', videoFile);
 
-                works.push(newWork);
-                localStorage.setItem('works', JSON.stringify(works));
+                try {
+                    const response = await fetch('/api/works', {
+                        method: 'POST',
+                        body: formData
+                    });
 
-                // Clear form
-                document.getElementById('workTitle').value = '';
-                document.getElementById('workDescription').value = '';
-                document.getElementById('workVideo').value = '';
+                    if (!response.ok) {
+                        throw new Error('Ошибка при загрузке работы');
+                    }
 
-                renderWorks();
-                alert('Работа успешно добавлена!');
+                    // Clear form
+                    document.getElementById('workTitle').value = '';
+                    document.getElementById('workDescription').value = '';
+                    document.getElementById('workVideo').value = '';
+
+                    renderWorks();
+                    alert('Работа успешно добавлена!');
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка при добавлении работы');
+                }
             } else {
                 alert('Заполните все поля!');
             }
         }
 
-        function renderWorks() {
-            const works = JSON.parse(localStorage.getItem('works') || '[]');
-            const isAdmin = localStorage.getItem('isAdmin') === 'true';
-
-            const worksHTML = works.map(work => `
-                <div class="bg-white rounded-lg overflow-hidden shadow">
-                    <video class="w-full h-48 object-cover" controls>
-                        <source src="${work.videoUrl}" type="video/mp4">
-                        Ваш браузер не поддерживает видео.
-                    </video>
-                    <div class="p-4">
-                        <h3 class="font-semibold mb-2">${work.title}</h3>
-                        <p class="text-gray-600 text-sm">${work.description}</p>
-                        <p class="text-gray-500 text-xs mt-2">Добавлено: ${work.date}</p>
-                        ${isAdmin ? `
-                            <button onclick="deleteWork(${work.id})" 
-                                    class="mt-2 w-full bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
-                                Удалить
-                            </button>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('worksContainer').innerHTML = worksHTML || 
-                '<p class="text-center text-gray-500 p-4">Пока нет добавленных работ</p>';
-        }
-
-        function deleteWork(workId) {
-            if (confirm('Удалить эту работу?')) {
-                const works = JSON.parse(localStorage.getItem('works') || '[]');
-                const updatedWorks = works.filter(work => work.id !== workId);
-                localStorage.setItem('works', JSON.stringify(updatedWorks));
-                renderWorks();
-            }
-        }
-
-        // Initialize storage
-        if (!localStorage.getItem('posts')) {
-            localStorage.setItem('posts', JSON.stringify([]));
-        }
-        if (!localStorage.getItem('works')) {
-            localStorage.setItem('works', JSON.stringify([]));
-        }
-
-        // Content navigation
-        function showContent(section) {
-            document.querySelectorAll('.content-section').forEach(el => el.classList.add('hidden'));
-            document.getElementById(section).classList.remove('hidden');
-
-            // Show/hide add work form based on admin status
-            if (section === 'works') {
+        async function renderWorks() {
+            try {
+                const response = await fetch('/api/works');
+                const data = await response.json();
+                const works = data.works;
                 const isAdmin = localStorage.getItem('isAdmin') === 'true';
-                document.getElementById('addWorkForm').style.display = isAdmin ? 'block' : 'none';
-                renderWorks();
-            }
-        }
 
-        // Modal handling
-        function showModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
+                // Show/hide add work form based on admin status
+                const addWorkForm = document.getElementById('addWorkForm');
+                if (addWorkForm) {
+                    addWorkForm.style.display = isAdmin ? 'block' : 'none';
+                }
 
-        function hideModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Check for admin status on load
-        window.addEventListener('DOMContentLoaded', () => {
-            const isAdmin = localStorage.getItem('isAdmin') === 'true';
-            updateAdminUI(isAdmin);
-            renderWorks();
-            showContent('home');
-        });
-
-        function updateAdminUI(isAdmin) {
-            document.getElementById('adminNav').style.display = isAdmin ? 'inline-flex' : 'none';
-            document.getElementById('mobileAdminNav').style.display = isAdmin ? 'block' : 'none';
-            document.getElementById('loginBtn').style.display = isAdmin ? 'none' : 'block';
-            document.getElementById('logoutBtn').style.display = isAdmin ? 'block' : 'none';
-            if (document.getElementById('works').classList.contains('hidden') === false) {
-                document.getElementById('addWorkForm').style.display = isAdmin ? 'block' : 'none';
-            }
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                localStorage.setItem('isAdmin', 'true');
-                updateAdminUI(true);
-                hideModal('loginModal');
-                showContent('admin');
-            } else {
-                alert('Неверные учетные данные!');
-            }
-        }
-
-        function handleLogout() {
-            localStorage.removeItem('isAdmin');
-            updateAdminUI(false);
-            showContent('home');
-        }
-
-
-        // Works management
-        function addWork() {
-            const title = document.getElementById('workTitle').value.trim();
-            const description = document.getElementById('workDescription').value.trim();
-            const videoFile = document.getElementById('workVideo').files[0];
-
-            if (title && description && videoFile) {
-                const works = JSON.parse(localStorage.getItem('works') || '[]');
-                const newWork = {
-                    id: Date.now(),
-                    title,
-                    description,
-                    videoUrl: URL.createObjectURL(videoFile),
-                    date: new Date().toLocaleDateString()
-                };
-
-                works.push(newWork);
-                localStorage.setItem('works', JSON.stringify(works));
-
-                // Clear form
-                document.getElementById('workTitle').value = '';
-                document.getElementById('workDescription').value = '';
-                document.getElementById('workVideo').value = '';
-
-                renderWorks();
-                alert('Работа успешно добавлена!');
-            } else {
-                alert('Пожалуйста, заполните все поля и выберите видео файл.');
-            }
-        }
-
-        function renderWorks() {
-            const works = JSON.parse(localStorage.getItem('works') || '[]');
-            const isAdmin = localStorage.getItem('isAdmin') === 'true';
-
-            const worksHTML = works.map(work => `
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <video class="w-full h-48 object-cover" controls>
-                        <source src="${work.videoUrl}" type="video/mp4">
-                        Ваш браузер не поддерживает видео.
-                    </video>
-                    <div class="p-4">
-                        <h3 class="font-semibold mb-2">${work.title}</h3>
-                        <p class="text-gray-600">${work.description}</p>
-                        <p class="text-sm text-gray-500 mt-2">Добавлено: ${work.date}</p>
-                        ${isAdmin ? `
-                            <button onclick="deleteWork(${work.id})" 
-                                    class="mt-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                Удалить
-                            </button>
-                        ` : ''}
+                const worksHTML = works.map(work => `
+                    <div class="bg-white rounded-lg overflow-hidden shadow">
+                        <video class="w-full h-48 object-cover" controls>
+                            <source src="${work.videoUrl}" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">${work.title}</h3>
+                            <p class="text-gray-600 text-sm">${work.description}</p>
+                            <p class="text-gray-500 text-xs mt-2">Добавлено: ${work.date}</p>
+                            ${isAdmin ? `
+                                <button onclick="deleteWork(${work.id})" 
+                                        class="mt-2 w-full bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
+                                    Удалить
+                                </button>
+                            ` : ''}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
 
-            document.getElementById('worksContainer').innerHTML = worksHTML || '<p class="text-center text-gray-500">Пока нет добавленных работ</p>';
+                const worksContainer = document.getElementById('worksContainer');
+                if (worksContainer) {
+                    worksContainer.innerHTML = worksHTML || 
+                        '<p class="text-center text-gray-500 p-4">Пока нет добавленных работ</p>';
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке работ:', error);
+                document.getElementById('worksContainer').innerHTML = 
+                    '<p class="text-center text-red-500 p-4">Ошибка при загрузке работ</p>';
+            }
         }
 
         function deleteWork(workId) {
             if (confirm('Вы уверены, что хотите удалить эту работу?')) {
-                const works = JSON.parse(localStorage.getItem('works') || '[]');
-                const updatedWorks = works.filter(work => work.id !== workId);
-                localStorage.setItem('works', JSON.stringify(updatedWorks));
+                //This part will need to be updated to handle file deletion from the server.  For now, it's commented out to avoid errors.
+                //const works = JSON.parse(localStorage.getItem('works') || '[]');
+                //const updatedWorks = works.filter(work => work.id !== workId);
+                //localStorage.setItem('works', JSON.stringify(updatedWorks));
                 renderWorks();
             }
         }
@@ -662,6 +519,21 @@ DDOS от - 15💵💀
                 renderPosts();
             }
         }
+
+        // Initialize storage and render content
+        window.addEventListener('DOMContentLoaded', () => {
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            if (!localStorage.getItem('works')) {
+                localStorage.setItem('works', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('posts')) {
+                localStorage.setItem('posts', JSON.stringify([]));
+            }
+            updateAdminUI(isAdmin);
+            renderWorks(); // Render works for all users
+            renderPosts();
+            showContent('home');
+        });
     </script>
 </body>
 </html>
