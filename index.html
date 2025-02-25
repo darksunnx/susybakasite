@@ -3,463 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rewich's Destiny</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dark Sun - Social Media Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --bg-primary: #1a1025;
-            --text-primary: #ffffff;
-            --accent-color: #8a2be2;
-            --gradient-start: #2a1b3d;
-            --gradient-end: #1a1025;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            color: var(--text-primary);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .container {
-            padding: 2rem;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-        }
-
-        .content {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .content.fade-out {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
-            transition: text-shadow 0.5s ease;
-        }
-
-        h1:hover {
-            text-shadow: 0 0 40px rgba(138, 43, 226, 0.5);
-        }
-
-        .soon-text {
-            font-size: 6rem;
-            font-weight: 700;
-            letter-spacing: 0.5rem;
-            margin-bottom: 2rem;
-            animation: pulse 3s infinite ease-in-out;
-        }
-
-        .description {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-            transition: color 0.3s ease;
-        }
-
-        .description:hover {
-            color: rgba(255, 255, 255, 1);
-        }
-
-        .reveal-text {
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            animation: slideIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        .timer {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 2rem;
-            transition: color 0.3s ease;
-        }
-
-        .timer:hover {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .icon {
-            font-size: 3rem;
-            margin: 2rem 0;
-            color: var(--accent-color);
-            animation: rotate 15s linear infinite;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: color 0.3s ease;
-        }
-
-        .icon:hover {
-            color: #9f3eff;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            0% {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes rotate {
-            0% { transform: translateX(-50%) rotate(0deg); }
-            100% { transform: translateX(-50%) rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .soon-text {
-                font-size: 4rem;
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            .description {
-                font-size: 1.2rem;
-            }
-            .reveal-text {
-                font-size: 2rem;
-            }
-        }
-
-
-        .disclaimer-overlay {
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 16, 37, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: rgba(0,0,0,0.5);
             z-index: 1000;
-            opacity: 1;
-            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: auto;
         }
-
-        .disclaimer-content {
-            background: var(--gradient-start);
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
-            transform: translateY(0);
-            transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .disclaimer-content h2 {
-            color: var(--accent-color);
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-        }
-
-        .disclaimer-content p {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            color: var(--text-primary);
-        }
-
-        .disclaimer-button {
-            background: var(--accent-color);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
-            margin-top: 20px;
-        }
-
-        .disclaimer-content .notification-toggle {
-            margin: 20px 0;
+        .modal.active {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .disclaimer-button:hover {
-            background-color: #9f3eff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
-        }
-
-        .disclaimer-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .disclaimer-content.hidden {
-            transform: translateY(-20px);
-        }
-
-        .notification-wrapper {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-        }
-
-        .notification {
-            background: var(--accent-color);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
-            transform: translateX(120%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-width: 300px;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .ios-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-            margin: 15px 0;
-        }
-
-        .ios-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .ios-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .ios-slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .ios-slider {
-            background-color: var(--accent-color);
-        }
-
-        input:checked + .ios-slider:before {
-            transform: translateX(26px);
         }
     </style>
 </head>
-<body>
-    <div class="disclaimer-overlay" id="disclaimerOverlay">
-        <div class="disclaimer-content">
-            <h2>Дисклеймер</h2>
-            <p>Мы не можем предугадать выбор Rewich. Его возвращение в команду - это его личное решение. Все, что будет сказано в реальности, будет отражено на этом сайте. Что будет с проектом? Не ебем в душе... Это путешествие в неизвестность, и мы все узнаем вместе.</p>
-            <div class="notification-toggle">
-                <p>Разрешить уведомления</p>
-                <label class="ios-switch">
-                    <input type="checkbox" id="notificationToggle" onchange="toggleNotifications()">
-                    <span class="ios-slider"></span>
-                </label>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold">Dark Sun</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" onclick="showContent('home')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Главная</a>
+                        <a href="#" onclick="showContent('works')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Работы</a>
+                        <a href="#" onclick="showContent('about')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">О нас</a>
+                        <a href="#" onclick="showContent('pricing')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Цены</a>
+                        <a href="#" id="adminNav" onclick="showContent('admin')" class="hidden text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Админ панель</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button id="loginBtn" onclick="showModal('loginModal')" class="bg-blue-600 text-white px-4 py-2 rounded-md">Вход для админа</button>
+                    <button id="logoutBtn" onclick="handleLogout()" class="hidden bg-red-600 text-white px-4 py-2 rounded-md">Выход</button>
+                </div>
             </div>
-            <button class="disclaimer-button" onclick="acceptDisclaimer()">Я понимаю</button>
+        </div>
+    </nav>
+
+    <!-- Content Sections -->
+    <div id="mainContent" class="container mx-auto px-4 py-8">
+        <!-- Home Section -->
+        <div id="home" class="content-section">
+            <h2 class="text-3xl font-bold mb-8">Добро пожаловать в Dark Sun</h2>
+            <div class="grid gap-6">
+                <!-- Post Form -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <textarea id="postContent" class="w-full p-2 border rounded" placeholder="О чем вы думаете?"></textarea>
+                    <div class="mt-4">
+                        <input type="file" id="mediaFile" accept="image/*,video/*" class="mb-4">
+                        <p class="text-sm text-gray-600 mb-4">Поддерживаемые форматы: Изображения (jpg, png, gif) и Видео (mp4, webm)</p>
+                    </div>
+                    <button onclick="submitPost()" class="bg-blue-600 text-white px-4 py-2 rounded">Опубликовать</button>
+                </div>
+                <!-- Posts Container -->
+                <div id="postsContainer" class="space-y-6"></div>
+            </div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="admin" class="content-section hidden">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-bold mb-6">Панель администратора</h2>
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Ожидающие публикации</h3>
+                    <div id="pendingPosts" class="space-y-4"></div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Опубликованные посты</h3>
+                    <div id="approvedPosts" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Works Section -->
+        <div id="works" class="content-section hidden">
+            <div class="bg-white p-8 rounded-lg shadow">
+                <h2 class="text-3xl font-bold mb-6">Наши работы</h2>
+
+                <!-- Admin Only: Add Work Form -->
+                <div id="addWorkForm" class="mb-8 hidden bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">Добавить новую работу</h3>
+                    <form onsubmit="event.preventDefault(); addWork();" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Название работы</label>
+                            <input type="text" id="workTitle" class="w-full p-2 border rounded" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Описание</label>
+                            <textarea id="workDescription" class="w-full p-2 border rounded" rows="3" required></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Видео</label>
+                            <input type="file" id="workVideo" accept="video/*" class="w-full" required>
+                            <p class="text-sm text-gray-500 mt-1">Поддерживаемые форматы: mp4, webm</p>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Добавить работу
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Works Container -->
+                <div id="worksContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Works will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="about" class="content-section hidden">
+            <div class="bg-white p-8 rounded-lg shadow">
+                <h2 class="text-3xl font-bold mb-6">О Dark Sun</h2>
+                <p class="text-lg mb-6">
+                    Dark Sun —  команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении..
+                </p>
+                <h3 class="text-xl font-semibold mb-4">Наши функции в приват соц сети</h3>
+                <ul class="list-disc pl-6 mb-6">
+                    <li>Усовершенствованная система модерации контента</li>
+                    <li>Обмен высококачественными фотографиями и видео</li>
+                    <li>Профессиональное курирование контента</li>
+                    <li>Активное взаимодействие сообщества</li>
+                </ul>
+                <h3 class="text-xl font-semibold mb-4">Свяжитесь с нами</h3>
+                <p>
+                    Telegram: @darksun_support<br>
+                    Email: contact@darksun.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <div id="pricing" class="content-section hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow">
+                    <h2 class="text-3xl font-bold mb-6">Доступ к проекту</h2>
+                    <p class="text-lg mb-8">
+                        Dark Sun- команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении..
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <h3 class="text-xl font-semibold">Что включено:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                DOX - от 10$
+                                Полностью деанонимизируем вашего обидчика, отправляем вам фио, номера, почты, адреса, паспорта при их наличии и родителей
+
+                                Вызов на дом(SW4T) - 18$
+                                Звонкаем ментам говорим зарезали свою бабку по адресу и чела ебут во все щели в участке
+
+                                Эвакуация - 20$
+                                эвакуируем ваше учебное заведение в течение 10 минут после оплаты, всех выведут на улицу после отпустят домой
+
+                                Доставки - 15$
+                                Закажу жертве с разбитым ебальников 2кг свинины на его имя и добавлю туда сверху холодьник самсунг
+
+                                Расхуярить двери - 20$
+                                вызовем мастера, который будет дергать ручку двери, стучать ногой, сломают замки и вскроют дверь, и так будет идти всю ночь
+
+                                 Донос - 8$
+                                расскажем нужным органам о деяниях жертвы
+
+                                😈 Судный день - 100💵
+1 круг - 30$
+В один круг входит вызов: скорой помощи, пожарки, различные доставки по типу аниматоров, пицца, ритуальные услуги, блокировка бaнкoвских карт
+в сутки судного дня входит беспрерывный вызов всех доставок,что только существуют, человеку будут долбиться в дверь весь день)
+можно купить как по суткам, так и по кругам  также будут вызываться на адрес следующие типовые категории:
+
+-   Представители гос. органов и спецслужб;
+-   Всевозможные службы доставки;
+-   Все эскортницы, которые будут в округе;
+-   Аниматоры на дом;
+-   Мужья на час; и так далее...
+
+DDOS от - 15💵💀
+Совершу DDOS атаку на нужный вам сайт
+
+Цена зависит от таких аспектов: защита сайта,время на которое его нужно положить,на сколько быстро нужно провести работу 
+
+🏷 Физический номер от - 5💵
+даем вам номер для телеграмма 
+🔄цена на прямую зависит от отлеги номера
+
+🌏🔐  "DEF" от Dark Sun - 
+💎 1 Month - 15💵
+💎3 Month - 25💵
+💎 6 Month - 40💵
+💎 1 Year - 60💵
+защита на просторах интернета, будем ебать всех и все, даже тех кто просто косо на вас посмотрит
+✅ Цена зависит от выбранного вами периода времени:
+Месяц / 6 месяцев / Год
+
+⚠️ Приватный канал - 20💵
+Покупая у нас приватный канал, вы гарантировано научитесь навыкам:
+
+   📤Доксинга
+   📤Сваттинга
+   📤Анонимности
+   📤 Сноса
+   📤 Вирусологии 
+   📤и прочему
+содержатся все нужные материалы для саморучного обучения от Ревича , постоянно пополняется информацией и моими знаниями
+вы можете найти напарника для совместной работы и обучения в этом же канале
+⚠️⚠️⚠️ ОБУЧЕНИЯ ВХОДИТ В ЦЕНУ ПРИВАТА
+                                
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Загрузка фото и видео
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Административная панель
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mb-8">
+                        <p class="text-xl font-semibold mb-2">Стоимость доступа:</p>
+                        <p class="text-3xl font-bold mb-4">По запросу</p>
+                        <p class="text-gray-600">
+                            Для получения информации о стоимости и условиях использования, 
+                            свяжитесь с нами в Telegram
+                        </p>
+                    </div>
+                    <a href="https://t.me/Divizion_of_Revichs" target="_blank" class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700">
+                        Связаться в Telegram
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="notification-wrapper" id="notificationWrapper"></div>
-    <div class="container">
-        <i class="fas fa-triangle icon"></i>
-        <div class="content" id="mainContent">
-            <h1>Судьба Rewich</h1>
-            <div class="soon-text">SOON...</div>
-            <p class="description">На этом сайте вся судьба Rewich. В 13:00 по МСК будет все ясно. Ожидайте...</p>
-            <div class="timer" id="timer"></div>
-        </div>
-        <div class="content fade-out" id="revealContent" style="display: none;">
-            <div class="reveal-text">ВЫ ДУМАЛИ МЫ УЙДЕМ?</div>
-            <div class="reveal-text" style="animation-delay: 0.5s;">ВЫ ХУЕВО ДУМАЕТЕ</div>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="m-auto bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-6">Вход для администратора</h2>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" id="username" placeholder="Логин" class="w-full p-2 mb-4 border rounded" required>
+                <input type="password" id="password" placeholder="Пароль" class="w-full p-2 mb-6 border rounded" required>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Войти</button>
+            </form>
+            <button onclick="hideModal('loginModal')" class="mt-4 text-gray-600">Отмена</button>
         </div>
     </div>
 
+    <!-- Script section -->
     <script>
-        // Проверяем только настройки уведомлений при загрузке
-        window.addEventListener('DOMContentLoaded', () => {
-            const notificationsEnabled = localStorage.getItem('notificationsEnabled') === 'true';
-            document.getElementById('notificationToggle').checked = notificationsEnabled;
+        // Initialize admin credentials
+        const ADMIN_CREDENTIALS = {
+            username: 'stripyxa',
+            password: 'alex'
+        };
 
-            if (notificationsEnabled && Notification.permission === "granted") {
-                setTimeout(() => {
-                    addNotification('Не забудь проверить сайт в 13:00 МСК!');
-                    new Notification("Rewich's Destiny", {
-                        body: 'Не забудь проверить сайт в 13:00 МСК!',
-                        icon: '/favicon.ico'
-                    });
-                }, 1000);
+        // Initialize storage
+        if (!localStorage.getItem('posts')) {
+            localStorage.setItem('posts', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('works')) {
+            localStorage.setItem('works', JSON.stringify([]));
+        }
+
+        // Content navigation
+        function showContent(section) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+
+            // Show/hide add work form based on admin status
+            if (section === 'works') {
+                const isAdmin = localStorage.getItem('isAdmin') === 'true';
+                document.getElementById('addWorkForm').style.display = isAdmin ? 'block' : 'none';
+                renderWorks();
             }
+        }
+
+        // Modal handling
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Check for admin status on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            updateAdminUI(isAdmin);
+            renderWorks();
+            showContent('home');
         });
 
-        function acceptDisclaimer() {
-            const overlay = document.getElementById('disclaimerOverlay');
-            const content = overlay.querySelector('.disclaimer-content');
-
-            // Сохраняем в localStorage только после нажатия на кнопку
-            localStorage.setItem('disclaimerAccepted', 'true');
-
-            content.classList.add('hidden');
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-            }, 2000);
+        function updateAdminUI(isAdmin) {
+            document.getElementById('adminNav').style.display = isAdmin ? 'inline-flex' : 'none';
+            document.getElementById('loginBtn').style.display = isAdmin ? 'none' : 'block';
+            document.getElementById('logoutBtn').style.display = isAdmin ? 'block' : 'none';
+            if (document.getElementById('works').classList.contains('hidden') === false) {
+                document.getElementById('addWorkForm').style.display = isAdmin ? 'block' : 'none';
+            }
         }
 
-        async function toggleNotifications() {
-            const isEnabled = document.getElementById('notificationToggle').checked;
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            if (isEnabled) {
-                if (Notification.permission !== "granted") {
-                    const permission = await Notification.requestPermission();
-                    if (permission !== "granted") {
-                        document.getElementById('notificationToggle').checked = false;
-                        addNotification('Для работы уведомлений необходимо разрешение браузера');
-                        return;
-                    }
-                }
-
-                localStorage.setItem('notificationsEnabled', 'true');
-                addNotification('Уведомления включены. Мы напомним вам о важных событиях!');
-                new Notification("Rewich's Destiny", {
-                    body: 'Уведомления включены. Мы напомним вам о важных событиях!',
-                    icon: '/favicon.ico'
-                });
-
-                const now = new Date();
-                const mskOffset = 3;
-                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-                const mskTime = new Date(utc + (3600000 * mskOffset));
-
-                if (mskTime.getHours() < 13) {
-                    setTimeout(() => {
-                        addNotification('Не забудь проверить сайт в 13:00 МСК!');
-                        new Notification("Rewich's Destiny", {
-                            body: 'Не забудь проверить сайт в 13:00 МСК!',
-                            icon: '/favicon.ico'
-                        });
-                    }, 1000 * 60 * 60);
-                }
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                localStorage.setItem('isAdmin', 'true');
+                updateAdminUI(true);
+                hideModal('loginModal');
+                showContent('admin');
             } else {
-                localStorage.setItem('notificationsEnabled', 'false');
+                alert('Неверные учетные данные!');
             }
         }
 
-        function addNotification(message) {
-            if (!document.getElementById('notificationToggle').checked) return;
-
-            const wrapper = document.getElementById('notificationWrapper');
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            wrapper.appendChild(notification);
-
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 100);
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    wrapper.removeChild(notification);
-                }, 400);
-            }, 5000);
+        function handleLogout() {
+            localStorage.removeItem('isAdmin');
+            updateAdminUI(false);
+            showContent('home');
         }
 
-        function checkTime() {
-            const now = new Date();
-            const mskOffset = 3;
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const mskTime = new Date(utc + (3600000 * mskOffset));
+        // Works management
+        function addWork() {
+            const title = document.getElementById('workTitle').value.trim();
+            const description = document.getElementById('workDescription').value.trim();
+            const videoFile = document.getElementById('workVideo').files[0];
 
-            const hours = mskTime.getHours();
-            const minutes = mskTime.getMinutes();
+            if (title && description && videoFile) {
+                const works = JSON.parse(localStorage.getItem('works') || '[]');
+                const newWork = {
+                    id: Date.now(),
+                    title,
+                    description,
+                    videoUrl: URL.createObjectURL(videoFile),
+                    date: new Date().toLocaleDateString()
+                };
 
-            const timerElement = document.getElementById('timer');
-            timerElement.textContent = `Текущее время МСК: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+                works.push(newWork);
+                localStorage.setItem('works', JSON.stringify(works));
 
-            if (hours === 13 && minutes >= 0) {
-                showRevealContent();
+                // Clear form
+                document.getElementById('workTitle').value = '';
+                document.getElementById('workDescription').value = '';
+                document.getElementById('workVideo').value = '';
+
+                renderWorks();
+                alert('Работа успешно добавлена!');
+            } else {
+                alert('Пожалуйста, заполните все поля и выберите видео файл.');
             }
         }
 
-        function showRevealContent() {
-            const mainContent = document.getElementById('mainContent');
-            const revealContent = document.getElementById('revealContent');
+        function renderWorks() {
+            const works = JSON.parse(localStorage.getItem('works') || '[]');
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
-            mainContent.classList.add('fade-out');
+            const worksHTML = works.map(work => `
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <video class="w-full h-48 object-cover" controls>
+                        <source src="${work.videoUrl}" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-semibold mb-2">${work.title}</h3>
+                        <p class="text-gray-600">${work.description}</p>
+                        <p class="text-sm text-gray-500 mt-2">Добавлено: ${work.date}</p>
+                        ${isAdmin ? `
+                            <button onclick="deleteWork(${work.id})" 
+                                    class="mt-2 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                Удалить
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
 
-            setTimeout(() => {
-                mainContent.style.display = 'none';
-                revealContent.style.display = 'block';
-                setTimeout(() => {
-                    revealContent.classList.remove('fade-out');
-                }, 100);
-            }, 1200);
+            document.getElementById('worksContainer').innerHTML = worksHTML || '<p class="text-center text-gray-500">Пока нет добавленных работ</p>';
         }
 
-        setInterval(checkTime, 1000);
-        checkTime();
+        function deleteWork(workId) {
+            if (confirm('Вы уверены, что хотите удалить эту работу?')) {
+                const works = JSON.parse(localStorage.getItem('works') || '[]');
+                const updatedWorks = works.filter(work => work.id !== workId);
+                localStorage.setItem('works', JSON.stringify(updatedWorks));
+                renderWorks();
+            }
+        }
+
+        function submitPost() {
+            const content = document.getElementById('postContent').value.trim();
+            const mediaFile = document.getElementById('mediaFile').files[0];
+            const nickname = localStorage.getItem('userNickname');
+
+            if (content && nickname) {
+                const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+                const newPost = {
+                    id: Date.now(),
+                    content,
+                    nickname,
+                    date: new Date().toLocaleDateString(),
+                    status: 'pending',
+                    mediaType: mediaFile ? mediaFile.type.startsWith('video/') ? 'video' : 'image' : null
+                };
+
+                posts.push(newPost);
+                localStorage.setItem('posts', JSON.stringify(posts));
+
+                alert('Post submitted for moderation!');
+                document.getElementById('postContent').value = '';
+                document.getElementById('mediaFile').value = '';
+                renderPosts();
+            }
+        }
+
+        function renderPosts() {
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+            // Render public posts
+            const publicPosts = posts.filter(post => post.status === 'approved')
+                .map(post => createPostElement(post, isAdmin))
+                .join('');
+            document.getElementById('postsContainer').innerHTML = publicPosts;
+
+            if (isAdmin) {
+                // Render pending posts
+                const pendingPosts = posts.filter(post => post.status === 'pending')
+                    .map(post => createPostElement(post, true, true))
+                    .join('');
+                document.getElementById('pendingPosts').innerHTML = pendingPosts;
+
+                // Render approved posts in admin view
+                const approvedPosts = posts.filter(post => post.status === 'approved')
+                    .map(post => createPostElement(post, true))
+                    .join('');
+                document.getElementById('approvedPosts').innerHTML = approvedPosts;
+            }
+        }
+
+        function createPostElement(post, isAdmin, isPending = false) {
+            return `
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="font-semibold">${post.nickname}</span>
+                            <span class="text-gray-500 text-sm ml-2">${post.date}</span>
+                            ${post.status === 'pending' ? '<span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded ml-2">Pending</span>' : ''}
+                        </div>
+                        ${isAdmin ? `
+                            <div class="space-x-2">
+                                ${isPending ? `
+                                    <button onclick="moderatePost(${post.id}, 'approved')" 
+                                            class="bg-green-500 text-white px-3 py-1 rounded">
+                                        Approve
+                                    </button>
+                                    <button onclick="moderatePost(${post.id}, 'rejected')" 
+                                            class="bg-red-500 text-white px-3 py-1 rounded">
+                                        Reject
+                                    </button>
+                                ` : `
+                                    <button onclick="moderatePost(${post.id}, 'deleted')" 
+                                            class="bg-red-500 text-white px-3 py-1 rounded">
+                                        Delete
+                                    </button>
+                                `}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <p class="mb-4">${post.content}</p>
+                    ${post.mediaType ? `
+                        <div class="mt-4">
+                            ${post.mediaType === 'video' ? 
+                                '<video controls class="w-full max-h-96 object-contain"><source src="placeholder.mp4" type="video/mp4"></video>' :
+                                '<img src="https://via.placeholder.com/400x300" alt="Post media" class="w-full max-h-96 object-contain">'
+                            }
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function moderatePost(postId, newStatus) {
+            const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+            const postIndex = posts.findIndex(p => p.id === postId);
+
+            if (postIndex !== -1) {
+                if (newStatus === 'deleted') {
+                    posts.splice(postIndex, 1);
+                } else {
+                    posts[postIndex].status = newStatus;
+                }
+                localStorage.setItem('posts', JSON.stringify(posts));
+                renderPosts();
+            }
+        }
     </script>
 </body>
 </html>
