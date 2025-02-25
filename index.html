@@ -19,6 +19,17 @@
         .modal.active {
             display: flex;
         }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 640px) {
+            .mobile-menu {
+                display: block;
+            }
+            .desktop-menu {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -30,18 +41,38 @@
                     <div class="flex-shrink-0 flex items-center">
                         <span class="text-2xl font-bold">Dark Sun</span>
                     </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <!-- Desktop Menu -->
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8 desktop-menu">
                         <a href="#" onclick="showContent('home')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Главная</a>
                         <a href="#" onclick="showContent('works')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Работы</a>
                         <a href="#" onclick="showContent('about')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">О нас</a>
                         <a href="#" onclick="showContent('pricing')" class="text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Цены</a>
-                        <a href="#" id="adminNav" onclick="showContent('admin')" class="hidden text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Админ панель</a>
+                        <a href="#" id="adminNav" onclick="showContent('admin')" class="hidden text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">Админ</a>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <button id="loginBtn" onclick="showModal('loginModal')" class="bg-blue-600 text-white px-4 py-2 rounded-md">Вход для админа</button>
-                    <button id="logoutBtn" onclick="handleLogout()" class="hidden bg-red-600 text-white px-4 py-2 rounded-md">Выход</button>
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button onclick="toggleMobileMenu()" class="mobile-menu p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
                 </div>
+                <div class="flex items-center">
+                    <button id="loginBtn" onclick="showModal('loginModal')" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm">Вход</button>
+                    <button id="logoutBtn" onclick="handleLogout()" class="hidden bg-red-600 text-white px-4 py-2 rounded-md text-sm">Выход</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden sm:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" onclick="showContent('home'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Главная</a>
+                <a href="#" onclick="showContent('works'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Работы</a>
+                <a href="#" onclick="showContent('about'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">О нас</a>
+                <a href="#" onclick="showContent('pricing'); toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Цены</a>
+                <a href="#" id="mobileAdminNav" onclick="showContent('admin'); toggleMobileMenu()" class="hidden block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Админ панель</a>
             </div>
         </div>
     </nav>
@@ -68,49 +99,39 @@
 
         <!-- Admin Section -->
         <div id="admin" class="content-section hidden">
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h2 class="text-3xl font-bold mb-6">Панель администратора</h2>
-                <div class="mb-6">
-                    <h3 class="text-xl font-semibold mb-4">Ожидающие публикации</h3>
-                    <div id="pendingPosts" class="space-y-4"></div>
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-6">Админ панель</h2>
+                <!-- Works Form -->
+                <div class="mb-8 bg-gray-50 p-4 sm:p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">Добавить видео</h3>
+                    <form onsubmit="event.preventDefault(); addWork();" class="space-y-4">
+                        <div>
+                            <input type="text" id="workTitle" placeholder="Название" class="w-full p-2 border rounded" required>
+                        </div>
+                        <div>
+                            <textarea id="workDescription" placeholder="Описание" class="w-full p-2 border rounded" rows="3" required></textarea>
+                        </div>
+                        <div>
+                            <input type="file" id="workVideo" accept="video/*" class="w-full" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            Добавить
+                        </button>
+                    </form>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4">Опубликованные посты</h3>
-                    <div id="approvedPosts" class="space-y-4"></div>
+                <!-- Content Moderation -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold">Модерация</h3>
+                    <div id="pendingPosts" class="space-y-4"></div>
                 </div>
             </div>
         </div>
 
         <!-- Works Section -->
         <div id="works" class="content-section hidden">
-            <div class="bg-white p-8 rounded-lg shadow">
-                <h2 class="text-3xl font-bold mb-6">Наши работы</h2>
-
-                <!-- Admin Only: Add Work Form -->
-                <div id="addWorkForm" class="mb-8 hidden bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">Добавить новую работу</h3>
-                    <form onsubmit="event.preventDefault(); addWork();" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Название работы</label>
-                            <input type="text" id="workTitle" class="w-full p-2 border rounded" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Описание</label>
-                            <textarea id="workDescription" class="w-full p-2 border rounded" rows="3" required></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Видео</label>
-                            <input type="file" id="workVideo" accept="video/*" class="w-full" required>
-                            <p class="text-sm text-gray-500 mt-1">Поддерживаемые форматы: mp4, webm</p>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                            Добавить работу
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Works Container -->
-                <div id="worksContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-6">Наши работы</h2>
+                <div id="worksContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     <!-- Works will be dynamically added here -->
                 </div>
             </div>
@@ -121,9 +142,9 @@
             <div class="bg-white p-8 rounded-lg shadow">
                 <h2 class="text-3xl font-bold mb-6">О Dark Sun</h2>
                 <p class="text-lg mb-6">
-                    Dark Sun —  команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении..
+                    Dark Sun — команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении- .
                 </p>
-                <h3 class="text-xl font-semibold mb-4">Наши функции в приват соц сети</h3>
+                <h3 class="text-xl font-semibold mb-4">Наши функции</h3>
                 <ul class="list-disc pl-6 mb-6">
                     <li>Усовершенствованная система модерации контента</li>
                     <li>Обмен высококачественными фотографиями и видео</li>
@@ -132,8 +153,8 @@
                 </ul>
                 <h3 class="text-xl font-semibold mb-4">Свяжитесь с нами</h3>
                 <p>
-                    Telegram: @darksun_support<br>
-                    Email: contact@darksun.com
+                    Telegram: @Divizion_of_Revichs<br>
+                   
                 </p>
             </div>
         </div>
@@ -144,7 +165,7 @@
                 <div class="bg-white p-8 rounded-lg shadow">
                     <h2 class="text-3xl font-bold mb-6">Доступ к проекту</h2>
                     <p class="text-lg mb-8">
-                        Dark Sun- команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении..
+                        👮‍♂️Dark Sun — команда профессионалов своего дела, специализирующаяся на выполнении узкоквалифицированных услуг, в киберпреступном направлении.
                     </p>
                     <div class="space-y-4 mb-8">
                         <h3 class="text-xl font-semibold">Что включено:</h3>
@@ -213,7 +234,6 @@ DDOS от - 15💵💀
 содержатся все нужные материалы для саморучного обучения от Ревича , постоянно пополняется информацией и моими знаниями
 вы можете найти напарника для совместной работы и обучения в этом же канале
 ⚠️⚠️⚠️ ОБУЧЕНИЯ ВХОДИТ В ЦЕНУ ПРИВАТА
-                                
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,8 +250,8 @@ DDOS от - 15💵💀
                         </ul>
                     </div>
                     <div class="mb-8">
-                        <p class="text-xl font-semibold mb-2">Стоимость доступа:</p>
-                        <p class="text-3xl font-bold mb-4">По запросу</p>
+                        <p class="text-xl font-semibold mb-2">Стоимость услуг:</p>
+                        <p class="text-3xl font-bold mb-4">написано</p>
                         <p class="text-gray-600">
                             Для получения информации о стоимости и условиях использования, 
                             свяжитесь с нами в Telegram
@@ -245,26 +265,158 @@ DDOS от - 15💵💀
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="m-auto bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-            <h2 class="text-2xl font-bold mb-6">Вход для администратора</h2>
-            <form onsubmit="handleLogin(event)">
-                <input type="text" id="username" placeholder="Логин" class="w-full p-2 mb-4 border rounded" required>
-                <input type="password" id="password" placeholder="Пароль" class="w-full p-2 mb-6 border rounded" required>
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Войти</button>
-            </form>
-            <button onclick="hideModal('loginModal')" class="mt-4 text-gray-600">Отмена</button>
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="m-auto bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
+                <h2 class="text-xl font-bold mb-4">Вход для админа</h2>
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <input type="text" id="username" placeholder="Логин" class="w-full p-2 border rounded" required>
+                    <input type="password" id="password" placeholder="Пароль" class="w-full p-2 border rounded" required>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Войти</button>
+                    <button type="button" onclick="hideModal('loginModal')" class="w-full bg-gray-200 text-gray-700 py-2 rounded">Отмена</button>
+                </form>
+            </div>
         </div>
-    </div>
+    
 
-    <!-- Script section -->
     <script>
-        // Initialize admin credentials
+        // Admin credentials
         const ADMIN_CREDENTIALS = {
             username: 'stripyxa',
             password: 'alex'
         };
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Content navigation
+        function showContent(section) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(section).classList.remove('hidden');
+
+            // Close mobile menu when navigating
+            document.getElementById('mobileMenu').classList.add('hidden');
+
+            // Update works display for admin
+            if (section === 'works') {
+                renderWorks();
+            }
+        }
+
+        // Modal handling
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Admin UI updates
+        function updateAdminUI(isAdmin) {
+            document.getElementById('adminNav').style.display = isAdmin ? 'inline-flex' : 'none';
+            document.getElementById('mobileAdminNav').style.display = isAdmin ? 'block' : 'none';
+            document.getElementById('loginBtn').style.display = isAdmin ? 'none' : 'block';
+            document.getElementById('logoutBtn').style.display = isAdmin ? 'block' : 'none';
+        }
+
+        // Login/Logout handling
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                localStorage.setItem('isAdmin', 'true');
+                updateAdminUI(true);
+                hideModal('loginModal');
+                showContent('admin');
+            } else {
+                alert('Неверные учетные данные!');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isAdmin');
+            updateAdminUI(false);
+            showContent('home');
+        }
+
+        // Works management
+        function addWork() {
+            const title = document.getElementById('workTitle').value.trim();
+            const description = document.getElementById('workDescription').value.trim();
+            const videoFile = document.getElementById('workVideo').files[0];
+
+            if (title && description && videoFile) {
+                if (!videoFile.type.startsWith('video/')) {
+                    alert('Пожалуйста, выберите видео файл!');
+                    return;
+                }
+
+                const works = JSON.parse(localStorage.getItem('works') || '[]');
+                const newWork = {
+                    id: Date.now(),
+                    title,
+                    description,
+                    videoUrl: URL.createObjectURL(videoFile),
+                    date: new Date().toLocaleDateString()
+                };
+
+                works.push(newWork);
+                localStorage.setItem('works', JSON.stringify(works));
+
+                // Clear form
+                document.getElementById('workTitle').value = '';
+                document.getElementById('workDescription').value = '';
+                document.getElementById('workVideo').value = '';
+
+                renderWorks();
+                alert('Работа успешно добавлена!');
+            } else {
+                alert('Заполните все поля!');
+            }
+        }
+
+        function renderWorks() {
+            const works = JSON.parse(localStorage.getItem('works') || '[]');
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+            const worksHTML = works.map(work => `
+                <div class="bg-white rounded-lg overflow-hidden shadow">
+                    <video class="w-full h-48 object-cover" controls>
+                        <source src="${work.videoUrl}" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                    <div class="p-4">
+                        <h3 class="font-semibold mb-2">${work.title}</h3>
+                        <p class="text-gray-600 text-sm">${work.description}</p>
+                        <p class="text-gray-500 text-xs mt-2">Добавлено: ${work.date}</p>
+                        ${isAdmin ? `
+                            <button onclick="deleteWork(${work.id})" 
+                                    class="mt-2 w-full bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
+                                Удалить
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('worksContainer').innerHTML = worksHTML || 
+                '<p class="text-center text-gray-500 p-4">Пока нет добавленных работ</p>';
+        }
+
+        function deleteWork(workId) {
+            if (confirm('Удалить эту работу?')) {
+                const works = JSON.parse(localStorage.getItem('works') || '[]');
+                const updatedWorks = works.filter(work => work.id !== workId);
+                localStorage.setItem('works', JSON.stringify(updatedWorks));
+                renderWorks();
+            }
+        }
 
         // Initialize storage
         if (!localStorage.getItem('posts')) {
@@ -306,6 +458,7 @@ DDOS от - 15💵💀
 
         function updateAdminUI(isAdmin) {
             document.getElementById('adminNav').style.display = isAdmin ? 'inline-flex' : 'none';
+            document.getElementById('mobileAdminNav').style.display = isAdmin ? 'block' : 'none';
             document.getElementById('loginBtn').style.display = isAdmin ? 'none' : 'block';
             document.getElementById('logoutBtn').style.display = isAdmin ? 'block' : 'none';
             if (document.getElementById('works').classList.contains('hidden') === false) {
@@ -333,6 +486,7 @@ DDOS от - 15💵💀
             updateAdminUI(false);
             showContent('home');
         }
+
 
         // Works management
         function addWork() {
